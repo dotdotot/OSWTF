@@ -13,7 +13,6 @@ int algorithm()
         }
         count++;
     }
-
     return count;
 }
 
