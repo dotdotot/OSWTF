@@ -20,7 +20,7 @@ vector<string> split(string text, string divid)
 }
 
 // 모음인지 확인
-bool gather(char text)
+bool vowel(char text)
 {
     bool check = false;
 
@@ -44,51 +44,52 @@ int main()
     // 반복자 생성
     vector<string>::iterator iter;
 
-    // 모음의 최대 개수 / 가장 긴 문자열 index번호
-    int vectorIndex = 0;
-    int maxGather = 0;
+    // 가장 긴 문자열 index번호 / 모음의 최대 개수 
+    int vectorLongIndex = 0;
+    int maxVowel = 0;
 
-    // 평균 문자열 길이 변수 / 평균 모음 개수
-    double averageLength = 0;
-    double averageGather = 0;
+    // 가장 짧은 문자열 index 번호 / 모음의 최수 개수
+    int vectorShortIndex = 0;
+    int minVowel = 0;
 
     // 출력
     int index = 0;
     for (iter = vText.begin(); iter != vText.end(); iter++)
     {
-        int maxGather2 = 0;
+        int g = 0;
         string t = (string)*iter;
         for (int i = 0; i < t.length(); i++)
         {
-            if (gather(t[i]))
+            if (vowel(t[i]))
             {
-                maxGather2++;
+                g++;
             }
         }
 
         // 최대 길이 문자열 index 갱신
-        if (vText[vectorIndex].length() < t.length())
+        if (vText[vectorLongIndex].length() < t.length())
         {
-            vectorIndex = index;
+            vectorLongIndex = index;
+        }
+
+        // 최소 길이 문자열 index 갱싱
+        if(vText[vectorShortIndex].length() > t.length()){
+            vectorShortIndex = index;
         }
 
         // 최대 모음개수 갱신
-        if (maxGather < maxGather2)
+        if (maxVowel < g)
         {
-            maxGather = maxGather2;
+            maxVowel = g;
         }
-
-        averageLength += t.length();
-        averageGather += maxGather2;
+        // 최소 모음개수 갱신
+        if(minVowel > g){
+            minVowel = g;
+        }
         index++;
     }
-    // 평균 갱신
-    averageLength = averageLength / vText.size();
-    averageGather = averageGather / vText.size();
-
-    cout << "가장 긴 문자열 : " << vText[vectorIndex] << endl;
-    cout << "가장 많은 모음의 개수 : " << maxGather << endl;
-
-    cout << "평균 문자열 길이 : " << averageLength << endl;
-    cout << "평균 모음 개수 : " << averageGather << endl;
+    cout << "가장 긴 문자열 : " << vText[vectorLongIndex] << endl;
+    cout << "가장 짧은 문자열 : " << vText[vectorShortIndex] << endl;
+    cout << "가장 많은 모음의 개수 : " << maxVowel << endl;
+    cout << "가장 적은 모음의 개수 : " << minVowel << endl;
 }
